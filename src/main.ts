@@ -8,7 +8,7 @@ const app: Express = express();
 const port: string = process.env.PORT ?? '3000';
 
 app.post(
-  'webhook',
+  '/webhook',
   express.json({ type: 'application/json' }),
   (request: Request, response: Response): void => {
     new RequestHandler().handleRequest(request, response);
