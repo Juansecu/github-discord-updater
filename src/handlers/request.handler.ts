@@ -1,9 +1,11 @@
+import { WebhookClient } from 'discord.js';
 import { Request, Response } from 'express';
 import { Logger } from 'winston';
 
 import { IRequestHandler } from './typings/request.handler';
 
 import { ConsoleLogger } from '../loggers/console.logger';
+
 import { GollumEventHandler } from './gollum.event-handler';
 
 export class RequestHandler implements IRequestHandler {
@@ -11,15 +13,26 @@ export class RequestHandler implements IRequestHandler {
     RequestHandler.name
   );
 
-  public handleRequest(request: Request, response: Response): void {
+  public async handleRequest(
+    request: Request,
+    response: Response
+  ): Promise<void> {
     const githubEvent: string = request.header('X-GitHub-Event') as string;
+    const webhookClient: WebhookClient = new WebhookClient({
+      id: process.env.WEBHOOK_ID as string,
+      token: process.env.WEBHOOK_TOKEN as string
+    });
 
     RequestHandler._CONSOLE_LOGGER.info(
       `Received ${githubEvent} event from GitHub`
     );
 
     if (githubEvent === GollumEventHandler.GITHUB_EVENT) {
-      new GollumEventHandler().handleRequest(request, response);
+      await new GollumEventHandler().handleEvent(
+        webhookClient,
+        request,
+        response
+      );
       return;
     }
 
