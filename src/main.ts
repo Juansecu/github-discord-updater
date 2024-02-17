@@ -5,9 +5,13 @@ import { ConsoleLogger } from './loggers/console.logger';
 
 import { RequestHandler } from './handlers/request.handler';
 
+import { checkEnvironmentVariables } from './check-environment-variables';
+
 const app: Express = express();
 const consoleLogger: Logger = ConsoleLogger.getLogger('main');
 const port: string = process.env.PORT ?? '3000';
+
+checkEnvironmentVariables();
 
 app.post(
   '/webhook',
