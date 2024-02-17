@@ -41,22 +41,19 @@ function checkIfClientIsGitHub(
     }
   }
 
-  if (
-    !request.get('hostname') ||
-    !request.get('User-Agent') ||
-    !request.get('X-GitHub-Event')
-  ) {
+  if (!request.get('User-Agent') || !request.get('X-GitHub-Event')) {
     consoleLogger.error('Client is not GitHub');
     response.status(403).send('Forbidden');
     return;
   }
 
-  if (
-    request.get('hostname') === 'GitHub' &&
-    request.get('User-Agent')!.startsWith('GitHub-Hookshot/') &&
-    request.get('X-GitHub-Event')
-  ) {
-    consoleLogger.info('Client is GitHub');
-    next();
+  if (!request.get('User-Agent')!.startsWith('GitHub-Hookshot/')) {
+    consoleLogger.info('Client is  not GitHub');
+    response.status(403).send('Forbidden');
+    return;
   }
+
+  consoleLogger.verbose('Client is GitHub');
+
+  next();
 }
