@@ -29,6 +29,36 @@ export class GollumEventHandler implements IEventHandler {
       `Handling ${GollumEventHandler.GITHUB_EVENT} event...`
     );
 
+    if (!request.body.pages) {
+      GollumEventHandler._CONSOLE_LOGGER.error(
+        'Request body is missing the "pages" property'
+      );
+
+      response.status(400).send('Bad Request');
+
+      return;
+    }
+
+    if (!Array.isArray(request.body.pages)) {
+      GollumEventHandler._CONSOLE_LOGGER.error(
+        'Request body property "pages" is not an array'
+      );
+
+      response.status(400).send('Bad Request');
+
+      return;
+    }
+
+    if (request.body.pages.length === 0) {
+      GollumEventHandler._CONSOLE_LOGGER.error(
+        'Request body property "pages" is an empty array'
+      );
+
+      response.status(400).send('Bad Request');
+
+      return;
+    }
+
     for (let i = 0; i < embedLimit && i < request.body.pages.length; i++) {
       let embedTitle = '';
 
@@ -66,11 +96,11 @@ export class GollumEventHandler implements IEventHandler {
       });
     } catch (error) {
       GollumEventHandler._CONSOLE_LOGGER.error(error);
-      response.status(500).send();
+      response.status(500).send('Internal Server Error');
       return;
     }
 
-    response.status(202).send();
+    response.status(202).send('Accepted');
 
     GollumEventHandler._CONSOLE_LOGGER.info(
       `Handled ${GollumEventHandler.GITHUB_EVENT} event successfully`
