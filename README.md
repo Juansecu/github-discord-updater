@@ -26,3 +26,54 @@ Application to retrieve GitHub updates and send them through Discord webhooks.
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Smee Client](https://smee.io/)
+
+## Running
+
+### Using Node.js
+
+In order to run the application using Node.js,
+you must have Node.js installed on your machine,
+and have PNPM installed globally on your machine.
+
+For checking if you have PNPM installed globally on your machine,
+you can run the following command:
+
+```sh
+$ pnpm --version
+```
+
+If you don't have PNPM installed globally on your machine,
+you can install it using the following commands:
+
+```sh
+# Enable Corepack
+$ corepack enable
+
+# Install PNPM
+$ corepack prepare pnpm@latest --activate
+```
+
+After installing PNPM, you can run
+the following command to install the dependencies:
+
+```sh
+# Development
+$ pnpm install
+
+# Production
+$ pnpm install
+$ pnpm build
+# ...Remove node_modules folder
+$ pnpm install --prod
+```
+
+After installing the dependencies, you can run
+the following command to start the application:
+
+```sh
+# Development
+$ pnpm run start:dev
+
+# Production
+$ pnpm run start:prod
+```
