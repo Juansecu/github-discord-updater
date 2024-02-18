@@ -37,12 +37,12 @@ export class GollumEventHandler implements IEventHandler {
 
       embedTitle = `[${request.body.repository.name}]`;
 
-      if (page.action === EGollumAction.EDITED) {
-        embedTitle += ` Page edited: ${page.title}`;
-        embedBuilder.setColor('Orange');
-      } else if (page.action === EGollumAction.CREATED) {
+      if (page.action === EGollumAction.CREATED) {
         embedTitle += ` New page created: ${page.title}`;
         embedBuilder.setColor('Green');
+      } else if (page.action === EGollumAction.EDITED) {
+        embedTitle += ` Page edited: ${page.title}`;
+        embedBuilder.setColor('Orange');
       }
 
       embedBuilder.setAuthor({

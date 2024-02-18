@@ -8,9 +8,17 @@ Application to retrieve GitHub updates and send them through Discord webhooks.
 - Discord Webhook URL
 - **Environment variables:**
 
-    | Variable        | Type   | Description                                                        | Required | Default | Example           |
-    | --------------- | ------ | ------------------------------------------------------------------ | -------- | ------- | ----------------- |
-    | `PORT`          | Number | The port where the HTTP server will be running                     | No       | `3000`  | `9020`            |
+    | Variable   | Type   | Description                                                        | Required | Default | Example           |
+    | ---------- | ------ | ------------------------------------------------------------------ | -------- | ------- | ----------------- |
+    | `NODE_ENV` | String | The environment where the application is running                   | No       | None    | `development`     |
+    | `PORT`     | Number | The port where the HTTP server will be running                     | No       | `3000`  | `9020`            |
+
+    **Note:**
+
+    - The `NODE_ENV` variable is used to determine the environment
+      where the application is running. It is highly recommended
+      to set it to `production` when deploying the application
+      to a production environment.
 
 ### Development Tools
 
