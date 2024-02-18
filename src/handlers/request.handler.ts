@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { Logger } from 'winston';
 
 import { IRequestHandler } from './typings/request.handler';
+import { IWebhook } from './typings/webhook';
 
 import { ConsoleLogger } from '../loggers/console.logger';
 
@@ -18,9 +19,13 @@ export class RequestHandler implements IRequestHandler {
     response: Response
   ): Promise<void> {
     const githubEvent: string = request.header('X-GitHub-Event') as string;
+    const webhook: IWebhook = {
+      webhookId: request.params.webhookId,
+      webhookToken: request.params.webhookToken
+    };
     const webhookClient: WebhookClient = new WebhookClient({
-      id: process.env.WEBHOOK_ID as string,
-      token: process.env.WEBHOOK_TOKEN as string
+      id: webhook.webhookId,
+      token: webhook.webhookToken
     });
 
     RequestHandler._CONSOLE_LOGGER.info(
@@ -33,6 +38,7 @@ export class RequestHandler implements IRequestHandler {
         request,
         response
       );
+
       return;
     }
 

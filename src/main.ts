@@ -14,7 +14,7 @@ const port: string = process.env.PORT ?? '3000';
 checkEnvironmentVariables();
 
 app.post(
-  '/webhook',
+  '/:webhookId/:webhookToken',
   express.json({ type: 'application/json' }),
   checkIfClientIsGitHub,
   (request: Request, response: Response): void => {

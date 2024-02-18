@@ -11,10 +11,6 @@ Application to retrieve GitHub updates and send them through Discord webhooks.
     | Variable        | Type   | Description                                                        | Required | Default | Example           |
     | --------------- | ------ | ------------------------------------------------------------------ | -------- | ------- | ----------------- |
     | `PORT`          | Number | The port where the HTTP server will be running                     | No       | `3000`  | `9020`            |
-    | `WEBHOOK_ID`    | String | The ID of the Discord webhook where GitHub updates will be sent    | Yes      | None    | `<webhook ID>`    |
-    | `WEBHOOK_TOKEN` | String | The token of the Discord webhook where GitHub updates will be sent | Yes      | None    | `<webhoot token>` |
-
-    **Note:** At the moment, only one webhook is supported.
 
 ### Development Tools
 
