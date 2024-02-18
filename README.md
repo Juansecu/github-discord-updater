@@ -2,6 +2,12 @@
 
 Application to retrieve GitHub updates and send them through Discord webhooks.
 
+## Purpose
+
+The purpose of this application is to retrieve GitHub updates
+than Discord webhooks cannot process successfully
+due to the expected format of the payload from Discord.
+
 ## Requirements
 
 - **[Node.js](https://nodejs.org/en/) -** 18.x
