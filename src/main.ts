@@ -17,6 +17,7 @@ app.post(
   '/:webhookId/:webhookToken',
   express.json({ type: 'application/json' }),
   checkIfClientIsGitHub,
+  validateRequestBody,
   (request: Request, response: Response): void => {
     new RequestHandler().handleRequest(request, response);
   }
@@ -54,6 +55,24 @@ function checkIfClientIsGitHub(
   }
 
   consoleLogger.verbose('Client is GitHub');
+
+  next();
+}
+
+function validateRequestBody(
+  request: Request,
+  response: Response,
+  next: NextFunction
+): void {
+  consoleLogger.verbose('Validating request body...');
+
+  if (!request.body) {
+    consoleLogger.error('Request body is empty');
+    response.status(400).send('Bad Request');
+    return;
+  }
+
+  consoleLogger.verbose('Request body is not empty');
 
   next();
 }
