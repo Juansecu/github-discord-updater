@@ -3,7 +3,6 @@ import { Response } from 'express';
 import { Logger } from 'winston';
 
 import { IEventHandler } from './typings/event.handler';
-import { IPage } from '../github/typings/page';
 import { IGollumRequest } from '../github/typings/requests/gollum.request';
 
 import { EGollumAction } from '../github/enums/gollum-action.enum';
@@ -59,11 +58,20 @@ export class GollumEventHandler implements IEventHandler {
       return;
     }
 
-    for (let i = 0; i < embedLimit && i < request.body.pages.length; i++) {
+    if (request.body.pages.length > embedLimit) {
+      GollumEventHandler._CONSOLE_LOGGER.error(
+        `Request body property "pages" has more than ${embedLimit} items`
+      );
+
+      response.status(400).send('Bad Request');
+
+      return;
+    }
+
+    for (const page of request.body.pages) {
       let embedTitle = '';
 
       const embedBuilder: EmbedBuilder = new EmbedBuilder();
-      const page: IPage = request.body.pages[i];
 
       embedTitle = `[${request.body.repository.name}]`;
 
