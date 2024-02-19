@@ -1,78 +1,47 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
-import { Logger } from 'winston';
+import express, { Express } from 'express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 import { ConsoleLogger } from './loggers/console.logger';
 
-import { RequestHandler } from './handlers/request.handler';
+import { swaggerConfig } from './config/swagger.config';
 
-import { checkEnvironmentVariables } from './check-environment-variables';
+import router from './router';
+
+import { environmentVariablesChecker } from './environment-variables.checker';
+
+import { getPort } from './utils/get-port.util';
+import { shouldUseHttps } from './utils/get-protocol.util';
 
 const app: Express = express();
-const consoleLogger: Logger = ConsoleLogger.getLogger('main');
-const port: string = process.env.PORT ?? '3000';
+const port: number = getPort();
+const swaggerSpecification: object = swaggerJsDoc(swaggerConfig);
 
-checkEnvironmentVariables();
+environmentVariablesChecker();
 
-app.post(
-  '/:webhookId/:webhookToken',
-  express.json({ type: 'application/json' }),
-  checkIfClientIsGitHub,
-  validateRequestBody,
-  (request: Request, response: Response): void => {
-    new RequestHandler().handleRequest(request, response);
-  }
-);
+app.use(router);
 
-app.listen(port, (): void => {
-  consoleLogger.info(`Listening on port ${port}`);
-});
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
 
-function checkIfClientIsGitHub(
-  request: Request,
-  response: Response,
-  next: NextFunction
-): void {
-  consoleLogger.verbose('Checking if client is GitHub...');
-
-  if (process.env.NODE_ENV === 'production') {
-    if (request.get('host') !== 'api.github.com') {
-      consoleLogger.error('Client is not GitHub');
-      response.status(403).send('Forbidden');
-      return;
-    }
-  }
-
-  if (!request.get('User-Agent') || !request.get('X-GitHub-Event')) {
-    consoleLogger.error('Client is not GitHub');
-    response.status(403).send('Forbidden');
-    return;
-  }
-
-  if (!request.get('User-Agent')!.startsWith('GitHub-Hookshot/')) {
-    consoleLogger.info('Client is  not GitHub');
-    response.status(403).send('Forbidden');
-    return;
-  }
-
-  consoleLogger.verbose('Client is GitHub');
-
-  next();
-}
-
-function validateRequestBody(
-  request: Request,
-  response: Response,
-  next: NextFunction
-): void {
-  consoleLogger.verbose('Validating request body...');
-
-  if (!request.body) {
-    consoleLogger.error('Request body is empty');
-    response.status(400).send('Bad Request');
-    return;
-  }
-
-  consoleLogger.verbose('Request body is not empty');
-
-  next();
+if (shouldUseHttps()) {
+  import('https')
+    .then(module => {
+      module
+        .createServer(
+          {
+            cert: process.env.HTTPS_CERT_FILEPATH,
+            key: process.env.HTTPS_KEY_FILEPATH
+          },
+          app
+        )
+        .listen(port);
+    })
+    .catch(error => {
+      ConsoleLogger.getLogger('main').error(error);
+      throw error;
+    });
+} else {
+  app.listen(port, (): void => {
+    ConsoleLogger.getLogger('main').info(`Listening on port ${port}`);
+  });
 }

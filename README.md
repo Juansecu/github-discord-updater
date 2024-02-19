@@ -14,10 +14,12 @@ due to the expected format of the payload from Discord.
 - Discord Webhook URL
 - **Environment variables:**
 
-    | Variable   | Type   | Description                                                        | Required | Default | Example           |
-    | ---------- | ------ | ------------------------------------------------------------------ | -------- | ------- | ----------------- |
-    | `NODE_ENV` | String | The environment where the application is running                   | No       | None    | `development`     |
-    | `PORT`     | Number | The port where the HTTP server will be running                     | No       | `3000`  | `9020`            |
+    | Variable              | Type    | Description                                         | Required | Default     | Example       |
+    | --------------------- | ------- | --------------------------------------------------- | -------- | ----------- | ------------- |
+    | `NODE_ENV`            | String  | The environment where the application is running    | No       | None        | `development` |
+    | `PORT`                | Number  | The port where the HTTP server will be running      | No       | `3000`      | `9020`        |
+    | `PUBLIC_HOST_ADDRESS` | String  | The public address where the application is running | No       | `localhost` | `example.com` |
+    | `SHOULD_USE_HTTPS`    | Boolean | Whether the application should use HTTPS            | No       | `false`     | `true`        |
 
     **Note:**
 
@@ -83,3 +85,9 @@ $ pnpm run start:dev
 # Production
 $ pnpm run start:prod
 ```
+
+## How to Use
+
+For learning how to use the application, you can
+check the API documentation by visiting the path
+`/api-docs` on the application's URL.

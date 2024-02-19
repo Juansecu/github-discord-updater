@@ -108,7 +108,7 @@ export class GollumEventHandler implements IEventHandler {
       return;
     }
 
-    response.status(202).send('Accepted');
+    response.status(200).send('OK');
 
     GollumEventHandler._CONSOLE_LOGGER.info(
       `Handled ${GollumEventHandler.GITHUB_EVENT} event successfully`
