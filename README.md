@@ -14,12 +14,14 @@ due to the expected format of the payload from Discord.
 - Discord Webhook URL
 - **Environment variables:**
 
-    | Variable              | Type    | Description                                         | Required | Default     | Example       |
-    | --------------------- | ------- | --------------------------------------------------- | -------- | ----------- | ------------- |
-    | `NODE_ENV`            | String  | The environment where the application is running    | No       | None        | `development` |
-    | `PORT`                | Number  | The port where the HTTP server will be running      | No       | `3000`      | `9020`        |
-    | `PUBLIC_HOST_ADDRESS` | String  | The public address where the application is running | No       | `localhost` | `example.com` |
-    | `SHOULD_USE_HTTPS`    | Boolean | Whether the application should use HTTPS            | No       | `false`     | `true`        |
+    | Variable              | Type    | Description                                         | Required | Default     | Example             |
+    | --------------------- | ------- | --------------------------------------------------- | -------- | ----------- | ------------------- |
+    | `HTTPS_CERT_FILEPATH` | String  | The file path of the HTTPS certificate file         | No       | None        | `/path/to/cert.pem` |
+    | `HTTPS_KEY_FILEPATH`  | String  | The file path of the HTTPS key file                 | No       | None        | `/path/to/key.pem`  |
+    | `NODE_ENV`            | String  | The environment where the application is running    | No       | None        | `development`       |
+    | `PORT`                | Number  | The port where the HTTP server will be running      | No       | `3000`      | `9020`              |
+    | `PUBLIC_HOST_ADDRESS` | String  | The public address where the application is running | No       | `localhost` | `example.com`       |
+    | `SHOULD_USE_HTTPS`    | Boolean | Whether the application should use HTTPS            | No       | `false`     | `true`              |
 
     **Note:**
 
