@@ -37,6 +37,10 @@ due to the expected format of the payload from Discord.
 - [Prettier](https://prettier.io/)
 - [Smee Client](https://smee.io/)
 
+## Supported GitHub Events
+
+- `gollum`
+
 ## Running
 
 ### Using Node.js

@@ -20,7 +20,10 @@ const router: Router = Router();
  *     parameters:
  *       - in: header
  *         name: X-GitHub-Event
- *         description: The event type.
+ *         description: |
+ *           The event type, which is used to determine the action to be taken.
+ *
+ *           Supported event types can be found [here](https://github.com/Juansecu/github-discord-updater/blob/main/README.md#supported-github-events).
  *         required: true
  *         schema:
  *           type: string
