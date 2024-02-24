@@ -1,6 +1,9 @@
-import express, { Request, Response, Router } from 'express';
+import express, { Response, Router } from 'express';
+
+import { IRequest } from './handlers/typings/request.handler';
 
 import { checkIfClientIsGitHub } from './middlewares/check-whether-client-is-github.middleware';
+import { validateDiscordWebhookUrl } from './middlewares/validate-discord-webhook-url.middleware';
 import { validateRequestBody } from './middlewares/validate-request-body.middleware';
 
 import { RequestHandler } from './handlers/request.handler';
@@ -12,7 +15,7 @@ const router: Router = Router();
  * tags:
  *   name: Webhooks
  *   description: Webhook operations
- * /{webhookId}/{webhookToken}:
+ * /?webhookUrl={webhookUrl}:
  *   post:
  *     description: Handles a webhook request.
  *     summary: Handles a webhook request
@@ -27,15 +30,9 @@ const router: Router = Router();
  *         required: true
  *         schema:
  *           type: string
- *       - in: path
- *         name: webhookId
- *         description: The ID of the webhook.
- *         required: true
- *         schema:
- *           type: string
- *       - in: path
- *         name: webhookToken
- *         description: The token of the webhook.
+ *       - in: query
+ *         name: webhookUrl
+ *         description: The URL of the Discord webhook to which the request will be forwarded.
  *         required: true
  *         schema:
  *           type: string
@@ -59,11 +56,12 @@ const router: Router = Router();
  *         description: An error occurred while processing the request.
  */
 router.post(
-  '/:webhookId/:webhookToken',
+  '/',
   express.json({ type: 'application/json' }),
   checkIfClientIsGitHub,
   validateRequestBody,
-  (request: Request, response: Response): void => {
+  validateDiscordWebhookUrl,
+  (request: IRequest, response: Response): void => {
     new RequestHandler().handleRequest(request, response);
   }
 );

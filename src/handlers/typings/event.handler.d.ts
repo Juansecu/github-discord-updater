@@ -1,10 +1,12 @@
 import { WebhookClient } from 'discord.js';
-import { Request, Response } from 'express';
+import { Response } from 'express';
+
+import { IRequest } from './request.handler';
 
 export interface IEventHandler {
   handleEvent(
     webhookClient: WebhookClient,
-    request: Request,
+    request: IRequest,
     response: Response
   ): void;
 }

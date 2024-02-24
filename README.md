@@ -97,3 +97,8 @@ $ pnpm run start:prod
 For learning how to use the application, you can
 check the API documentation by visiting the path
 `/api-docs` on the application's URL.
+
+Once you understand how to use the application,
+you can start using it to retrieve GitHub updates
+by adding the application's URL as a webhook
+to the GitHub repository you want to retrieve updates from.

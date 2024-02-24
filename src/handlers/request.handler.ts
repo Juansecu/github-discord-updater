@@ -1,9 +1,8 @@
 import { WebhookClient } from 'discord.js';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Logger } from 'winston';
 
-import { IRequestHandler } from './typings/request.handler';
-import { IWebhook } from './typings/webhook';
+import { IRequest, IRequestHandler } from './typings/request.handler';
 
 import { ConsoleLogger } from '../loggers/console.logger';
 
@@ -15,22 +14,32 @@ export class RequestHandler implements IRequestHandler {
   );
 
   public async handleRequest(
-    request: Request,
+    request: IRequest,
     response: Response
   ): Promise<void> {
+    let webhookClient: WebhookClient | null = null;
+
     const githubEvent: string = request.header('X-GitHub-Event') as string;
-    const webhook: IWebhook = {
-      webhookId: request.params.webhookId,
-      webhookToken: request.params.webhookToken
-    };
-    const webhookClient: WebhookClient = new WebhookClient({
-      id: webhook.webhookId,
-      token: webhook.webhookToken
-    });
 
     RequestHandler._CONSOLE_LOGGER.info(
       `Received ${githubEvent} event from GitHub`
     );
+
+    RequestHandler._CONSOLE_LOGGER.verbose('Retrieving Discord webhook...');
+
+    try {
+      webhookClient = new WebhookClient({
+        url: request.query.webhookUrl
+      });
+    } catch (error) {
+      RequestHandler._CONSOLE_LOGGER.error(
+        `Failed to retrieve Discord webhook: ${(error as Error).message}`
+      );
+
+      response.status(500).send('Internal Server Error');
+
+      return;
+    }
 
     if (githubEvent === GollumEventHandler.GITHUB_EVENT) {
       await new GollumEventHandler().handleEvent(

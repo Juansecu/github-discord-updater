@@ -29,7 +29,7 @@ export function checkIfClientIsGitHub(
   }
 
   if (!request.get('User-Agent')!.startsWith('GitHub-Hookshot/')) {
-    consoleLogger.info('Client is  not GitHub');
+    consoleLogger.error('Client is  not GitHub');
     response.status(403).send('Forbidden');
     return;
   }
