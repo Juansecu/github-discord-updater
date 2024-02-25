@@ -5,7 +5,7 @@ on:
     types:
       - completed
     workflows:
-      - Check Linter Errors
+      - Create Release
   release:
     types: [published]
 

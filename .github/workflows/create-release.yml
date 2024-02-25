@@ -1,6 +1,11 @@
 name: Create Release
 
 on:
+  workflow_run:
+    types:
+      - completed
+    workflows:
+      - Check Linter Errors
   push:
     tags:
       - 'v*.*.*'
