@@ -116,7 +116,7 @@ you can install it using the following commands:
 $ corepack enable
 
 # Install PNPM
-$ corepack prepare pnpm@latest --activate
+$ corepack prepare pnpm@latest-8 --activate
 ```
 
 After installing PNPM, you can run
@@ -127,9 +127,6 @@ the following command to install the dependencies:
 $ pnpm install
 
 # Production
-$ pnpm install
-$ pnpm build
-# ...Remove node_modules folder
 $ pnpm install --prod
 ```
 
