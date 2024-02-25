@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  openapi:
+    image: github-discord-updater
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: github-discord-updater
+    environment:
+      HTTPS_CERT_FILEPATH: ${HTTPS_CERT_FILEPATH
+      HTTPS_KEY_FILEPATH: ${HTTPS_KEY_FILEPATH}
+      NODE_ENV: production
+      PUBLIC_HOST_ADDRESS: ${PUBLIC_HOST_ADDRESS}
+      SHOULD_USE_HTTPS: ${SHOULD_USE_HTTPS}
+    ports:
+      - '3000:3000'
+    volumes:
+      - ${LOCAL_HTTPS_CERT_FILEPATH}:${HTTPS_CERT_FILEPATH}:ro
+      - ${LOCAL_HTTPS_KEY_FILEPATH}:${HTTPS_KEY_FILEPATH}:ro
