@@ -10,6 +10,8 @@ import router from './router';
 
 import { environmentVariablesChecker } from './environment-variables.checker';
 
+import { logger } from './middlewares/logger.middleware';
+
 import { getPort } from './utils/get-port.util';
 import { shouldUseHttps } from './utils/get-protocol.util';
 
@@ -18,6 +20,8 @@ const port: number = getPort();
 const swaggerSpecification: object = swaggerJsDoc(swaggerConfig);
 
 environmentVariablesChecker();
+
+app.use(logger);
 
 app.use(router);
 

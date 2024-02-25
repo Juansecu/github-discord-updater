@@ -15,6 +15,8 @@ export function checkIfClientIsGitHub(
   consoleLogger.verbose('Checking if client is GitHub...');
 
   if (process.env.NODE_ENV === 'production') {
+    consoleLogger.info(`Client host: ${request.get('host')}`);
+
     if (request.get('host') !== 'api.github.com') {
       consoleLogger.error('Client is not GitHub');
       response.status(403).send('Forbidden');
