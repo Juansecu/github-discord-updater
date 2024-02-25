@@ -1,4 +1,4 @@
-name: Create Release
+name: Deliver Application
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - Check Linter Errors
 
 jobs:
-  build:
+  create-release:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -52,3 +52,27 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
+
+  push-docker-image:
+    name: Push Docker Image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        docker-repository: [ juansecu/github-discord-updater ]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+      - name: Build and push the Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ matrix.docker-repository }}:${{ github.ref_name }},${{ matrix.docker-repository }}:latest
+
