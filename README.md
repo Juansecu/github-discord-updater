@@ -43,6 +43,58 @@ due to the expected format of the payload from Discord.
 
 ## Running
 
+### Using Docker (Recommended)
+
+In order to run the application using [Docker](https://www.docker.com/),
+you must have Docker installed on your machine.
+
+For running the application with Docker, you will need to mount both
+the SSL cert and key files using Docker volumes
+and map port `3000` to your host machine.
+
+#### Docker CLI
+
+- **Windows**
+
+    ```shell
+    > docker run -dp 8080:8080 \
+        -v <path\to\ssl-cert>:${HTTPS_CERT_FILEPATH} \
+        -v <path\to\ssl-key>:${HTTPS_KEY_FILEPATH} \
+        --env-file <path\to\env\file> \
+        --name <container-name> \
+        juansecu/github-discord-updater:v<version number>
+    ```
+
+- **MacOS/Linux**
+
+    ```shell
+    $ docker run -dp 3000:3000 \
+        --env-file <path/to/env/file> \
+        --name <container-name> \
+        juansecu/github-discord-updater:v<version number>
+    ```
+
+#### Docker Compose
+
+For running the application with Docker Compose,
+you can use the
+[Docker Compose file](https://github.com/Juansecu/github-discord-updater/blob/main/docker-compose.yml)
+provided in this repository for development and production.
+
+After configuring the environment variables, you can run the application using the following command:
+
+- **Docker Compose v1**
+
+```shell
+$ docker-compose up -d
+```
+
+- **Docker Compose v2**
+
+```shell
+$ docker compose up -d
+```
+
 ### Using Node.js
 
 In order to run the application using Node.js,
