@@ -1,0 +1,50 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 20.x ]
+        pnpm-version: [ 8.x ]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ matrix.pnpm-version }}
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build application
+        run: pnpm run build
+      - name: Zip application
+        uses: vimtor/action-zip@v1.1
+        with:
+          dest: github-discord-updater-${{ github.ref_name }}.zip
+          files: |
+            dist
+            package.json
+            pnpm-lock.yaml
+      - name: Release application
+        uses: softprops/action-gh-release@v1
+        with:
+          body: Version ${{ github.ref_name }} of the application
+          body_path: ./CHANGELOG.md
+          files: |
+            github-discord-updater-${{ github.ref_name }}.zip
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          draft: false
+          prerelease: false
