@@ -38,10 +38,7 @@ jobs:
         uses: vimtor/action-zip@v1.1
         with:
           dest: github-discord-updater-${{ github.ref_name }}.zip
-          files: |
-            dist
-            package.json
-            pnpm-lock.yaml
+          files: dist/ package.json pnpm-lock.yaml
       - name: Release application
         uses: softprops/action-gh-release@v1
         with:
