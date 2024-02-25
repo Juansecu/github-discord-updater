@@ -41,6 +41,25 @@ due to the expected format of the payload from Discord.
 
 - `gollum`
 
+## Building
+
+Whenever you want to apply changes to the application,
+you must build the application in order to apply the changes.
+
+In order to build the application, you must install the dependencies
+using the following command:
+
+```sh
+$ pnpm install
+```
+
+After installing the dependencies, you can build the application
+using the following command:
+
+```sh
+$ pnpm build
+```
+
 ## Running
 
 ### Using Docker (Recommended)
