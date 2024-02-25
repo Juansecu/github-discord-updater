@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Logger } from 'winston';
+
 import { ConsoleLogger } from '../loggers/console.logger';
 
 export function logger(
@@ -9,7 +10,7 @@ export function logger(
 ): void {
   const consoleLogger: Logger = ConsoleLogger.getLogger(logger.name);
 
-  consoleLogger.verbose(
+  consoleLogger.info(
     `Request received: ${request.method} ${request.originalUrl} from ${request.ip}`
   );
 

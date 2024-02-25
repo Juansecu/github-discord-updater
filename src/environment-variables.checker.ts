@@ -2,7 +2,9 @@ import { shouldUseHttps } from './utils/get-protocol.util';
 
 export function environmentVariablesChecker(): void {
   if (process.env.PORT) checkPort();
+
   checkHttpsConfig();
+  checkPublicHostAddress();
 }
 
 function checkHttpsConfig(): void {
@@ -18,4 +20,9 @@ function checkHttpsConfig(): void {
 function checkPort(): void {
   if (isNaN(Number(process.env.PORT)))
     throw new Error('PORT environment variable must be a number');
+}
+
+function checkPublicHostAddress(): void {
+  if (!process.env.PUBLIC_HOST_ADDRESS)
+    throw new Error('PUBLIC_HOST_ADDRESS environment variable must be set');
 }

@@ -3,6 +3,8 @@ import { Logger } from 'winston';
 
 import { ConsoleLogger } from '../loggers/console.logger';
 
+import { getHostAddress } from '../utils/get-host-address.util';
+
 export function checkIfClientIsGitHub(
   request: Request,
   response: Response,
@@ -17,7 +19,10 @@ export function checkIfClientIsGitHub(
   if (process.env.NODE_ENV === 'production') {
     consoleLogger.info(`Client host: ${request.get('host')}`);
 
-    if (request.get('host') !== 'api.github.com') {
+    if (
+      request.get('host') !== 'api.github.com' &&
+      request.get('host') !== getHostAddress()
+    ) {
       consoleLogger.error('Client is not GitHub');
       response.status(403).send('Forbidden');
       return;
@@ -36,7 +41,7 @@ export function checkIfClientIsGitHub(
     return;
   }
 
-  consoleLogger.verbose('Client is GitHub');
+  consoleLogger.info('Client is GitHub');
 
   next();
 }
