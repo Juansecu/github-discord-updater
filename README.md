@@ -10,7 +10,8 @@ due to the expected format of the payload from Discord.
 
 ## Requirements
 
-- **[Node.js](https://nodejs.org/en/) -** Version 20.x
+- **[Node.js](https://nodejs.org/en/) -** Version 22.x
+- **[PNPM](https://pnpm.io/) -** Version 9.x
 - Discord Webhook URL
 - **Environment variables:**
 

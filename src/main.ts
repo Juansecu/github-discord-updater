@@ -15,37 +15,43 @@ import { logger } from './middlewares/logger.middleware';
 import { getPort } from './utils/get-port.util';
 import { shouldUseHttps } from './utils/get-protocol.util';
 
-const app: Express = express();
-const port: number = getPort();
-const swaggerSpecification: object = swaggerJsDoc(swaggerConfig);
+bootstrap();
 
-environmentVariablesChecker();
+function bootstrap(): void {
+  const app: Express = express();
+  const port: number = getPort();
+  const swaggerSpecification: object = swaggerJsDoc(swaggerConfig);
 
-app.use(logger);
+  environmentVariablesChecker();
 
-app.use(router);
+  app.use(logger);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
+  app.use(router);
 
-if (shouldUseHttps()) {
-  import('https')
-    .then(module => {
-      module
-        .createServer(
-          {
-            cert: process.env.HTTPS_CERT_FILEPATH,
-            key: process.env.HTTPS_KEY_FILEPATH
-          },
-          app
-        )
-        .listen(port);
-    })
-    .catch(error => {
-      ConsoleLogger.getLogger('main').error(error);
-      throw error;
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
+
+  app.disable('x-powered-by');
+
+  if (shouldUseHttps()) {
+    import('https')
+      .then(module => {
+        module
+          .createServer(
+            {
+              cert: process.env.HTTPS_CERT_FILEPATH,
+              key: process.env.HTTPS_KEY_FILEPATH
+            },
+            app
+          )
+          .listen(port);
+      })
+      .catch(error => {
+        ConsoleLogger.getLogger('main').error(error);
+        throw error;
+      });
+  } else {
+    app.listen(port, (): void => {
+      ConsoleLogger.getLogger('main').info(`Listening on port ${port}`);
     });
-} else {
-  app.listen(port, (): void => {
-    ConsoleLogger.getLogger('main').info(`Listening on port ${port}`);
-  });
+  }
 }
