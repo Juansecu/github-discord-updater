@@ -98,18 +98,10 @@ and map port `3000` to your host machine.
 
 For running the application with Docker Compose,
 you can use the
-[Docker Compose file](https://github.com/Juansecu/github-discord-updater/blob/main/docker-compose.yml)
+[Docker Compose file](https://github.com/Juansecu/github-discord-updater/blob/main/compose.yml)
 provided in this repository for development and production.
 
 After configuring the environment variables, you can run the application using the following command:
-
-- **Docker Compose v1**
-
-```shell
-$ docker-compose up -d
-```
-
-- **Docker Compose v2**
 
 ```shell
 $ docker compose up -d
