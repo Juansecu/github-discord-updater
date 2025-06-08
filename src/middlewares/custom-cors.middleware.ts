@@ -45,7 +45,8 @@ export function customCors(
 
     if (process.env.NODE_ENV === 'production') {
       if (
-        origin !== 'https://api.github.com' ||
+        (origin !== 'https://api.github.com' &&
+          host !== process.env.PUBLIC_HOST_ADDRESS) ||
         !userAgent ||
         !request.header('X-GitHub-Event')
       ) {
