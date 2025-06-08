@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Removed `X-Powered-By` header from responses to enhance security
+- Updated dependencies to fix security vulnerabilities
 
 ## [1.0.0]
 
