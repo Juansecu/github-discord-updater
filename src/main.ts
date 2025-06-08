@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import helmet from 'helmet';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -24,13 +25,13 @@ function bootstrap(): void {
 
   environmentVariablesChecker();
 
+  app.use(helmet());
+
   app.use(logger);
 
   app.use(router);
 
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
-
-  app.disable('x-powered-by');
 
   if (shouldUseHttps()) {
     import('https')

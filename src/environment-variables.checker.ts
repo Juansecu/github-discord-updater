@@ -18,7 +18,7 @@ function checkHttpsConfig(): void {
 }
 
 function checkPort(): void {
-  if (isNaN(Number(process.env.PORT)))
+  if (!/^(\d+)$/.test(process.env.PORT as string))
     throw new Error('PORT environment variable must be a number');
 }
 
