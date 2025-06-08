@@ -16,7 +16,7 @@ due to the expected format of the payload from Discord.
 - **Environment variables:**
 
     | Variable              | Type    | Description                                         | Required | Default | Example             |
-    | --------------------- | ------- | --------------------------------------------------- | -------- | ------- | ------------------- |
+    |-----------------------|---------|-----------------------------------------------------|----------|---------|---------------------|
     | `HTTPS_CERT_FILEPATH` | String  | The file path of the HTTPS certificate file         | No       | None    | `/path/to/cert.pem` |
     | `HTTPS_KEY_FILEPATH`  | String  | The file path of the HTTPS key file                 | No       | None    | `/path/to/key.pem`  |
     | `NODE_ENV`            | String  | The environment where the application is running    | No       | None    | `development`       |
