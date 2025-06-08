@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { description, version } = require('../../package.json');
 
 import { Options } from 'swagger-jsdoc';

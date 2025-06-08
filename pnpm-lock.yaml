@@ -24,6 +24,12 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
     devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.3.1
+        version: 3.3.1
+      '@eslint/js':
+        specifier: ^9.28.0
+        version: 9.28.0
       '@types/express':
         specifier: ^5.0.3
         version: 5.0.3
@@ -51,6 +57,9 @@ importers:
       eslint-plugin-prettier:
         specifier: ^5.4.1
         version: 5.4.1(eslint-config-prettier@10.1.5(eslint@9.28.0))(eslint@9.28.0)(prettier@3.5.3)
+      globals:
+        specifier: ^16.2.0
+        version: 16.2.0
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
@@ -726,6 +735,10 @@ packages:
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
+    engines: {node: '>=18'}
+
+  globals@16.2.0:
+    resolution: {integrity: sha512-O+7l9tPdHCU320IigZZPj5zmRCFG9xHmx9cU8FqU2Rp+JN714seHV+2S9+JslCpY4gJwU2vOGox0wzgae/MCEg==}
     engines: {node: '>=18'}
 
   gopd@1.2.0:
@@ -2064,6 +2077,8 @@ snapshots:
       path-is-absolute: 1.0.1
 
   globals@14.0.0: {}
+
+  globals@16.2.0: {}
 
   gopd@1.2.0: {}
 
