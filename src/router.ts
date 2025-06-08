@@ -1,8 +1,7 @@
-import express, { Response, Router } from 'express';
+import { Response, Router } from 'express';
 
 import { IRequest } from './handlers/typings/request.handler';
 
-import { checkIfClientIsGitHub } from './middlewares/check-whether-client-is-github.middleware';
 import { validateDiscordWebhookUrl } from './middlewares/validate-discord-webhook-url.middleware';
 import { validateRequestBody } from './middlewares/validate-request-body.middleware';
 
@@ -57,12 +56,10 @@ const router: Router = Router();
  */
 router.post(
   '/',
-  express.json({ type: 'application/json' }),
-  checkIfClientIsGitHub,
   validateRequestBody,
   validateDiscordWebhookUrl,
-  (request: IRequest, response: Response): void => {
-    new RequestHandler().handleRequest(request, response);
+  async (request: IRequest, response: Response): Promise<void> => {
+    await new RequestHandler().handleRequest(request, response);
   }
 );
 

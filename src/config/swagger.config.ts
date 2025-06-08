@@ -4,7 +4,6 @@ const { description, version } = require('../../package.json');
 import { Options } from 'swagger-jsdoc';
 
 import { getHostAddress } from '../utils/get-host-address.util';
-import { getPort } from '../utils/get-port.util';
 import { getProtocol } from '../utils/get-protocol.util';
 
 export const swaggerConfig: Options = {
@@ -23,7 +22,7 @@ export const swaggerConfig: Options = {
     servers: [
       {
         description: 'Webhook server',
-        url: `${getProtocol()}://${getHostAddress()}:${getPort()}`
+        url: `${getProtocol()}://${getHostAddress()}`
       }
     ]
   }

@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added helmet middleware to prevent security vulnerabilities
 - Updated dependencies to fix security vulnerabilities
+- Disabled Swagger UI in production environment
+- Added CORS configuration to allow requests from GitHub only in production
+- Removed duplicated port from Swagger documentation
 
 ## [1.0.0]
 
