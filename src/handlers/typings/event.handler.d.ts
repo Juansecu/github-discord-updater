@@ -8,5 +8,5 @@ export interface IEventHandler {
     webhookClient: WebhookClient,
     request: IRequest,
     response: Response
-  ): void;
+  ): Promise<void>;
 }

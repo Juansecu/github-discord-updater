@@ -77,10 +77,19 @@ export class GollumEventHandler implements IEventHandler {
 
       if (page.action === EGollumAction.CREATED) {
         embedTitle += ` New page created: ${page.title}`;
+
         embedBuilder.setColor('Green');
+        embedBuilder.setDescription(
+          page.summary ?? `Check out the new page [here](${page.html_url})!`
+        );
       } else if (page.action === EGollumAction.EDITED) {
         embedTitle += ` Page edited: ${page.title}`;
+
         embedBuilder.setColor('Orange');
+        embedBuilder.setDescription(
+          page.summary ??
+            `Check out the changes [here](${page.html_url}/_history)!`
+        );
       }
 
       embedBuilder.setAuthor({
@@ -90,10 +99,6 @@ export class GollumEventHandler implements IEventHandler {
       });
       embedBuilder.setTitle(embedTitle);
       embedBuilder.setURL(page.html_url);
-      embedBuilder.setDescription(
-        page.summary ??
-          `Check out the changes [here](${page.html_url}/_history)!`
-      );
 
       embedMessages.push(embedBuilder);
     }

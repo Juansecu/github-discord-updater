@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disabled Swagger UI in production environment
 - Added CORS configuration to allow requests from GitHub only in production
 - Removed duplicated port from Swagger documentation
+- Changed embed description on `gollum` event depending on the action type
 
 ## [1.0.0]
 

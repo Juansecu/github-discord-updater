@@ -7,5 +7,5 @@ export interface IRequest extends Request {
 }
 
 export interface IRequestHandler {
-  handleRequest(request: IRequest, response: Response): void;
+  handleRequest(request: IRequest, response: Response): Promise<void>;
 }
