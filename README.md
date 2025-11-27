@@ -2,6 +2,10 @@
 
 Application to retrieve GitHub updates and send them through Discord webhooks.
 
+> [!WARNING]
+> This project is not longer maintained in favor of better tools
+> like n8n, Make, Pipedream, Zapier, etc.
+
 ## Purpose
 
 The purpose of this application is to retrieve GitHub updates
